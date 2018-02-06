@@ -1,26 +1,35 @@
 import React, { Component}  from 'react';
-import DateTime from 'react-datetime';
+import Datetime from 'react-datetime';
+import moment from 'moment';
 
 export default class ReservationForm extends Component {
     constructor(props) {
-        super(props);
-        this.submit = this.submit.bind(this);
+      super(props);
+      this.submit = this.submit.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+      this.handleDateChange = this.handleDateChange.bind(this);
+      this.state = {name: '', hotelName: '', arrivalDate: '', departureDate: ''};
     }
 
     submit(e) {
-        e.preventDefault();
+      e.preventDefault();
+      this.props.onNewReservation(this.state);
+      this.setState({name: '', hotelName: '', arrivalDate: '', departureDate: ''});
+    }
 
-        this.props.onNewReservation({
-            name: this._name.value,
-            hotelName: this._hotelName.value,
-            arrivalDate: this._arrivalDate.value,
-            departureDate: this._departureDate.value
-        });
+    handleChange(event) {
+      const update = {};
+      update[event.target.name] = event.target.value;
+      this.setState(update);
+    }
 
-        this._name.value = '';
-        this._hotelName.value = '';
-        this._arrivalDate.value = '';
-        this._departureDate.value = '';
+    handleDateChange(date, name) {
+      if (typeof date === 'object') {
+          date = date.format('YYYY/DD/MM');
+      }
+      const update = {};
+      update[name] = date;
+      this.setState(update);
     }
 
 
@@ -28,19 +37,37 @@ export default class ReservationForm extends Component {
         return (<form onSubmit={this.submit}>
                 <div className="form-group">
                     <label htmlFor="resName">Name</label>
-                    <input ref={input => this._name = input} type="text" className="form-control" id="resName" placeholder="Enter Your Name" required/>
+                    <input name="name" type="text" className="form-control" id="resName" placeholder="Enter Your Name" required value={this.state.name}
+                        onChange={this.handleChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="hotelName">Hotel Name</label>
-                    <input ref={input => this._hotelName = input} type="text" className="form-control" id="hotelName" placeholder="Enter Hotel Name" required/>
+                    <input name="hotelName" type="text" className="form-control" id="hotelName" placeholder="Enter Hotel Name" required value={this.state.hotelName}
+                        onChange={this.handleChange}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="arrivalDate">Arrival Date</label>
-                    <DateTime inputProps={{required: true, id: "arrivalDate", ref: input => this._arrivalDate = input}}/>
+                    <Datetime value={this.state.arrivalDate}
+                              onChange={(date) => this.handleDateChange(date, 'arrivalDate')}
+                              closeOnSelect={true}
+                              closeOnTab={true}
+                              inputProps={{
+                                required: true,
+                                id: "arrivalDate",
+                                name: "arrivalDate",
+                            }}/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="departureDate">Departure Date</label>
-                    <DateTime inputProps={{required: true, id: "departureDate", ref: input => this._departureDate = input}}/>
+                    <Datetime value={this.state.departureDate}
+                              onChange={(date) => this.handleDateChange(date, 'departureDate')}
+                              closeOnSelect={true}
+                              closeOnTab={true}
+                            inputProps={{
+                                required: true,
+                                id: "departureDate",
+                                name: "departureDate",
+                            }}/>
                 </div>
                 <button type="submit" className="btn btn-primary float-right">Add Reservation</button>
                 </form>);
