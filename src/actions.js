@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 import request from 'request';
 
 export const addReservation = reservation => dispatch => {
-    fetch('https://hiltonchallenge.com/reservation/', {
+    fetch('https://hiltonchallenge.com/api/v1/reservation/', {
         method: 'post',
         body: JSON.stringify(reservation),
         headers: {
@@ -19,7 +19,7 @@ export const addReservation = reservation => dispatch => {
 
 export const fetchReservations = () => dispatch => {
 
-    fetch('https://hiltonchallenge.com/reservations/', {})
+    fetch('https://hiltonchallenge.com/api/v1/reservations/', {})
         .then(response => {
             return response.json();
         })
@@ -37,7 +37,7 @@ export const fetchReservations = () => dispatch => {
 
 export const setReservation = reservationId => dispatch => {
 
-    fetch(`https://hiltonchallenge.com/reservation/${reservationId}`, {})
+    fetch(`https://hiltonchallenge.com/api/v1/reservation/${reservationId}`, {})
         .then(response => {
             return response.json();
         })
