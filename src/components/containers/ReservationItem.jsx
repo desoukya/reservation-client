@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import { setReservation } from '../../actions';
 
 const mapStateToProps = (state, props) =>
-	({
-		router: props.router
-	});
+  ({
+    router: props.router
+  });
 
 const mapDispatchToProps = dispatch =>
-	({
-		onSetReservation(reservationId) {
-			dispatch(
-				setReservation(reservationId)
-			);
-		}
-	});
+  ({
+    onSetReservation(reservationId) {
+      dispatch(
+        setReservation(reservationId)
+      );
+    }
+  });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(ReservationItem);
 

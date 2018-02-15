@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { addReservation } from '../../actions';
 
 const mapStateToProps = (state, props) =>
-	({
-        reservations: state.reservations,
-		router: props.router
-	});
+  ({
+    reservations: state.reservations,
+    router: props.router
+  });
 
 
 const Container = connect(mapStateToProps)(ReservationList);

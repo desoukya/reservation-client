@@ -1,9 +1,9 @@
 import C from '../constants';
 import { combineReducers } from 'redux';
 
-export const reservations = (state=[], action) => {
+export const reservations = (state = [], action) => {
 
-  switch(action.type) {
+  switch (action.type) {
 
     case C.ADD_RESERVATION:
 
@@ -19,9 +19,9 @@ export const reservations = (state=[], action) => {
 
 };
 
-export const reservation = (state=[], action) => {
+export const reservation = (state = [], action) => {
 
-  switch(action.type) {
+  switch (action.type) {
 
     case C.SET_RESERVATION:
 
